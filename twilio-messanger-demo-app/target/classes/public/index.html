@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset = "ISO-8859-1" />
+      <title>Add employees</title>
+      <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+      
+      <script>
+         $(document).ready(function() {
+            $("button").click(function() {
+               var greetingmodel = {
+                  toNumber : $('input[name=to]').val(),
+                  message: $('textarea[name=message]').val(),
+               };
+               var requestJSON = JSON.stringify(greetingmodel);
+               $.ajax({
+                  type : "POST",
+                  url : "http://localhost:8082/greetings",
+                  data : requestJSON,
+                  success : function(data) {
+                     console.log(data);
+                  },
+                  error : function(data) {
+                	  alert(data);
+                  }
+               });
+            });
+         });
+      </script>
+   </head>
+   
+   <body>      
+      <div id="main-content" class="container">
+        <div class="col-md-6">
+
+            <form class="form-inline" id ="smsForm"  method="post">
+                <div class="form-group">
+                <p>To Number: <input type="text"  name="to" id="to" /></p>
+                    <br/><p>Message: <textarea  name="message" id="message" > </textarea></p>
+                </div>
+                <p> <button id="send" class="btn btn-primary" type="submit">Send</button></p>
+            </form>
+        </div>
+    </div>
+   </body>
+</html>
